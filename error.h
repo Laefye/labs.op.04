@@ -4,7 +4,7 @@
 enum Error {
     None,
     FileIsNotOpened,
-    IncorrectFile,
+    IncorrectFormat,
 };
 
 #endif // ERROR_H

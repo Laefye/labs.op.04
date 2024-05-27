@@ -25,7 +25,13 @@ private:
     Graph* graph;
 
     void loadFile();
+    void redrawGraph();
 
     AppContext context;
+private slots:
+    void setTranslation();
+    void setRotation();
+    void setScale();
+    void setNormilize();
 };
 #endif // MAINWINDOW_H

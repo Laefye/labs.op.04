@@ -9,6 +9,11 @@ struct Point {
     double y;
 };
 
+enum NormilizeValue {
+    Real,
+    Normilize,
+};
+
 struct AppContext {
     Error error;
     struct List rows;
@@ -16,6 +21,11 @@ struct AppContext {
     Vector translation;
     Vector scale;
     Vector rotation;
+    struct {
+        NormilizeValue normilize;
+        double min;
+        double max;
+    } range;
 };
 
 #endif // APPCONTEXT_H
