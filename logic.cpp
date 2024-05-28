@@ -136,11 +136,15 @@ double getValue(AppContext* context, struct Node* dataCell) {
 
 void calculatePoints(AppContext* context) {
     freePoints(context);
-    Matrix matrix;
-    identity(&matrix);
-    rotate(&matrix, &context->rotation);
-    translate(&matrix, &context->translation);
-    scale(&matrix, &context->scale);
+    Matrix translation;
+    identity(&translation);
+    translate(&translation, &context->translation);
+    Matrix rotation;
+    identity(&rotation);
+    rotate(&rotation, &context->rotation);
+    Matrix scaling;
+    identity(&scaling);
+    scale(&scaling, &context->scale);
     int y = 0;
     struct Node* dataRow = context->rows.first;
     while (dataRow) {
@@ -149,7 +153,10 @@ void calculatePoints(AppContext* context) {
         struct Node* dataCell = ((struct List*) dataRow->ptr)->first;
         while (dataCell) {
             struct Vector vector = {(double) x, (double) y, getValue(context, dataCell), 1};
-            multiplyVector(&matrix, &vector);
+            multiplyVector(&translation, &vector);
+            multiplyVector(&rotation, &vector);
+
+            multiplyVector(&scaling, &vector);
             struct Point point = {vector.x, vector.z};
             listPush(&pointsRow, &point);
             dataCell = dataCell->next;
