@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->normalizeValue, SIGNAL(stateChanged(int)), SLOT(setNormilize()));
     connect(ui->minValue, SIGNAL(valueChanged(double)), SLOT(setNormilize()));
     connect(ui->maxValue, SIGNAL(valueChanged(double)), SLOT(setNormilize()));
+    connect(ui->perspectiveMode, SIGNAL(stateChanged(int)), SLOT(setPerspective()));
 
     doOperation(Operation::Init, &context, 0);
 
@@ -117,5 +118,12 @@ void MainWindow::setNormilize() {
         .max = ui->maxValue->value(),
     };
     doOperation(Operation::SetNormilize, &context, &params);
+    redrawGraph();
+}
+
+void MainWindow::setPerspective() {
+    AppParams params;
+    params.projection = ui->perspectiveMode->isChecked() ? Projection::Perspective : Projection::Ortographic,
+    doOperation(Operation::SetProjection, &context, &params);
     redrawGraph();
 }

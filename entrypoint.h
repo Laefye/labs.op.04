@@ -10,6 +10,7 @@ enum Operation {
     SetRotation,
     SetScale,
     SetNormilize,
+    SetProjection,
 };
 
 struct AppParams {
@@ -34,6 +35,7 @@ struct AppParams {
         double min;
         double max;
     } range;
+    Projection projection;
 };
 
 void doOperation(Operation operation, struct AppContext* context, struct AppParams* params);

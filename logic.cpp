@@ -12,6 +12,7 @@ void init(struct AppContext* context) {
         .min = 0,
         .max = 1,
     };
+    context->projection = Projection::Ortographic;
 }
 
 int readRow(char* inputLine, struct List* row) {
@@ -157,11 +158,12 @@ void calculatePoints(AppContext* context) {
             multiplyVector(&scaling, &vector);
             multiplyVector(&rotation, &vector);
             struct Point point;
-            // perspective
-            double k = 900;
-            point = {vector.x * k / (vector.y + k), vector.z * k / (vector.y + k)};
-            // ortographic
-            point = {vector.x, vector.z};
+            if (context->projection == Projection::Perspective) {
+                point = {vector.x * PERSPECTIVE_K / (vector.y + PERSPECTIVE_K), vector.z * PERSPECTIVE_K / (vector.y + PERSPECTIVE_K)};
+            } else {
+                point = {vector.x, vector.z};
+            }
+
             listPush(&pointsRow, &point);
             dataCell = dataCell->next;
             x++;
@@ -186,4 +188,8 @@ void setNormilize(AppContext* context, double min, double max, NormilizeValue no
     context->range.min = min;
     context->range.max = max;
     context->range.normilize = normilize;
+}
+
+void setProjection(AppContext* context, Projection projection) {
+    context->projection = projection;
 }

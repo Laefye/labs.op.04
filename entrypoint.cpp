@@ -24,5 +24,8 @@ void doOperation(Operation operation, struct AppContext* context, struct AppPara
     case Operation::SetNormilize:
         setNormilize(context, params->range.min, params->range.max, params->range.normilize);
         break;
+    case Operation::SetProjection:
+        setProjection(context, params->projection);
+        break;
     }
 }

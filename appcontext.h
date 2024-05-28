@@ -14,6 +14,11 @@ enum NormilizeValue {
     Normilize,
 };
 
+enum Projection {
+    Ortographic,
+    Perspective,
+};
+
 struct AppContext {
     Error error;
     struct List rows;
@@ -26,6 +31,7 @@ struct AppContext {
         double min;
         double max;
     } range;
+    Projection projection;
 };
 
 #endif // APPCONTEXT_H

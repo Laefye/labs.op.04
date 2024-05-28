@@ -33,5 +33,6 @@ private slots:
     void setRotation();
     void setScale();
     void setNormilize();
+    void setPerspective();
 };
 #endif // MAINWINDOW_H
