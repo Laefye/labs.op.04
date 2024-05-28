@@ -158,7 +158,7 @@ void calculatePoints(AppContext* context) {
             multiplyVector(&scaling, &vector);
             multiplyVector(&rotation, &vector);
             struct Point point;
-            if (context->projection == Projection::Perspective) {
+            if (context->projection == Projection::Perspective && vector.y > 0) {
                 point = {vector.x * PERSPECTIVE_K / (vector.y + PERSPECTIVE_K), vector.z * PERSPECTIVE_K / (vector.y + PERSPECTIVE_K)};
             } else {
                 point = {vector.x, vector.z};
