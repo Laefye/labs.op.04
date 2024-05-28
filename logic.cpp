@@ -153,10 +153,15 @@ void calculatePoints(AppContext* context) {
         struct Node* dataCell = ((struct List*) dataRow->ptr)->first;
         while (dataCell) {
             struct Vector vector = {(double) x, (double) y, getValue(context, dataCell), 1};
-            multiplyVector(&rotation, &vector);
             multiplyVector(&translation, &vector);
             multiplyVector(&scaling, &vector);
-            struct Point point = {vector.x, vector.z};
+            multiplyVector(&rotation, &vector);
+            struct Point point;
+            // perspective
+            double k = 900;
+            point = {vector.x * k / (vector.y + k), vector.z * k / (vector.y + k)};
+            // ortographic
+            point = {vector.x, vector.z};
             listPush(&pointsRow, &point);
             dataCell = dataCell->next;
             x++;

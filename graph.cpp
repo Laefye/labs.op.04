@@ -9,7 +9,7 @@ void Graph::drawHorisontal(QPainter& painter) {
         for (Node* pointNode = ((List*)row->ptr)->first->next; pointNode ; pointNode = pointNode->next) {
             Point* point = (Point*)pointNode->ptr;
             Point* leftPoint = (Point*)(pointNode->prev->ptr);
-            painter.drawLine((int) point->x, height() - (int) point->y, (int) leftPoint->x, height() - (int) leftPoint->y);
+            painter.drawLine(width() / 2 + (int) point->x, height() / 2 - (int) point->y, width() / 2 + (int) leftPoint->x, height() / 2 - (int) leftPoint->y);
         }
     }
 }
@@ -21,7 +21,7 @@ void Graph::drawVertical(QPainter& painter) {
         for (Node* pointNode = ((List*)row->ptr)->first; pointNode ; pointNode = pointNode->next) {
             Point* point = (Point*)pointNode->ptr;
             Point* bottomPoint = (Point*)listIndex((List*)listIndex(&this->context->points, rowIndex-1)->ptr, coloumnIndex)->ptr;
-            painter.drawLine((int) point->x, height() - (int) point->y, (int) bottomPoint->x, height() - (int) bottomPoint->y);
+            painter.drawLine(width() / 2 + (int) point->x, height() / 2 - (int) point->y, width() / 2 + (int) bottomPoint->x, height() / 2 - (int) bottomPoint->y);
             coloumnIndex++;
         }
         rowIndex++;
