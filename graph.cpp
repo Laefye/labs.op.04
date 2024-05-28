@@ -32,7 +32,7 @@ void Graph::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setBrush(Qt::black);
     painter.drawRect(0, 0, width() - 1, height() - 1);
-    painter.setBrush(Qt::white);
+    painter.setPen(Qt::white);
     if (this->context->points.count == 0) {
         return;
     }
