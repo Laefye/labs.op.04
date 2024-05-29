@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->minValue, SIGNAL(valueChanged(double)), SLOT(setNormilize()));
     connect(ui->maxValue, SIGNAL(valueChanged(double)), SLOT(setNormilize()));
     connect(ui->perspectiveMode, SIGNAL(stateChanged(int)), SLOT(setPerspective()));
+    connect(ui->scalingByAllAxis, SIGNAL(stateChanged(int)), SLOT(setScale()));
 
     doOperation(Operation::Init, &context, 0);
 
@@ -100,11 +101,13 @@ void MainWindow::redrawGraph()  {
 }
 
 void MainWindow::setScale() {
+    ui->scaleY->setEnabled(!ui->scalingByAllAxis->isChecked());
+    ui->scaleZ->setEnabled(!ui->scalingByAllAxis->isChecked());
     AppParams params;
     params.scale = {
         ui->scaleX->value(),
-        ui->scaleY->value(),
-        ui->scaleZ->value(),
+        ui->scalingByAllAxis->isChecked() ? ui->scaleX->value() : ui->scaleY->value(),
+        ui->scalingByAllAxis->isChecked() ? ui->scaleX->value() : ui->scaleZ->value(),
     };
     doOperation(Operation::SetScale, &context, &params);
     redrawGraph();
